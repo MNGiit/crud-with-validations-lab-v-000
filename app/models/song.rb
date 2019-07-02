@@ -1,9 +1,11 @@
 class Song < ApplicationRecord
   validates :title, presence: true
-  
   validates :artist_name, presence: true
   validates :released, inclusion: { in: [true, false] }
-
+  validates :title, uniqueness: {
+    scope: %i[release_year artist_name],
+    message: 'cant be same artist in same year'
+  }
   # validates :release_year, presence: true
   
   #  https://apidock.com/rails/Object/with_options
